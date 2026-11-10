@@ -1,0 +1,28 @@
+=== INFORME DE DIAGNÓSTICO DE DATOS (2011) ===
+
+--- 1. ESTADO DE CONTEOS DE PROGRAMAS ---
+- Sin incidencias detectadas: 2539 programas
+- Pendiente de revisión: 1611 programas
+- Cero observado: verificar admisión: 909 programas
+
+--- 2. MÉTRICAS GLOBALES DE ADMISIÓN ---
+- Total de programas observados: 5,059
+- Ingresantes identificados totales: 157,955
+- Registros de primer ingreso sin MRUN: 67
+- Registros con ingreso por revisar: 28,370
+
+--- 3. DETECCIÓN DE ANOMALÍAS DE DATO Y FORMATO ---
+- Duraciones fuera de rango (menos de 4 o más de 16 semestres): 127 programas
+
+--- 4. MUESTRA DE PROGRAMAS QUE REQUIEREN REVISIÓN (Top 10) ---
+  codigo_unico                                nomb_inst                                                                     nomb_carrera                      estado_conteo  registros_sin_mrun  registros_ingreso_por_revisar
+   I47S1C4J1V1                 UNIVERSIDAD DEL PACIFICO                                                                       PERIODISMO              Pendiente de revisión                   1                              0
+  I19S5C98J1V1              UNIVERSIDAD DE LAS AMERICAS                                                                     KINESIOLOGIA              Pendiente de revisión                   0                             10
+  I20S2C19J1V1                 UNIVERSIDAD ANDRES BELLO                                EDUCACION FISICA PARA LA EDUCACION GENERAL BASICA              Pendiente de revisión                   1                              0
+  I88S1C13J1V1 UNIVERSIDAD TECNICA FEDERICO SANTA MARIA                                                  INGENIERIA CIVIL EN INFORMATICA              Pendiente de revisión                   0                             28
+  I76S1C77J1V1               UNIVERSIDAD DE LA FRONTERA                             PEDAGOGIA EN EDUCACION FISICA, DEPORTES Y RECREACION              Pendiente de revisión                   0                              1
+  I29S1C26J1V1                        UNIVERSIDAD UCINF                                                                   TRABAJO SOCIAL              Pendiente de revisión                   0                              4
+ I84S17C69J2V1                 UNIVERSIDAD DE LOS LAGOS                               INGENIERIA EJECUCION EN ADMINISTRACION DE EMPRESAS Cero observado: verificar admisión                   0                              0
+  I45S1C11J2V1               UNIVERSIDAD DEL DESARROLLO INGENIERIA EN EJECUCION EN ADMINISTRACION MENCION MARKETING Y FINANZAS APLICADAS              Pendiente de revisión                   0                             28
+ I19S3C144J5V1              UNIVERSIDAD DE LAS AMERICAS                                          PEDAGOGIA EN EDUCACION BASICA EXECUTIVE              Pendiente de revisión                   0                              3
+I54S33C113J1V1  UNIVERSIDAD TECNOLOGICA DE CHILE INACAP                                                                   PSICOPEDAGOGIA              Pendiente de revisión                   0                             91

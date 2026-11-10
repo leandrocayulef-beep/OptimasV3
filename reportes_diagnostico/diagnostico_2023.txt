@@ -1,0 +1,28 @@
+=== INFORME DE DIAGNÓSTICO DE DATOS (2023) ===
+
+--- 1. ESTADO DE CONTEOS DE PROGRAMAS ---
+- Pendiente de revisión: 1786 programas
+- Sin incidencias detectadas: 1592 programas
+- Cero observado: verificar admisión: 1543 programas
+
+--- 2. MÉTRICAS GLOBALES DE ADMISIÓN ---
+- Total de programas observados: 4,921
+- Ingresantes identificados totales: 149,559
+- Registros de primer ingreso sin MRUN: 75
+- Registros con ingreso por revisar: 38,482
+
+--- 3. DETECCIÓN DE ANOMALÍAS DE DATO Y FORMATO ---
+- Duraciones fuera de rango (menos de 4 o más de 16 semestres): 156 programas
+
+--- 4. MUESTRA DE PROGRAMAS QUE REQUIEREN REVISIÓN (Top 10) ---
+ codigo_unico                                nomb_inst                             nomb_carrera         estado_conteo  registros_sin_mrun  registros_ingreso_por_revisar
+  I45S2C4J1V1               UNIVERSIDAD DEL DESARROLLO                                  DERECHO Pendiente de revisión                   0                             21
+ I31S2C41J1V1            UNIVERSIDAD AUTONOMA DE CHILE                               ENFERMERIA Pendiente de revisión                   0                             10
+ I39S6C78J4V2                UNIVERSIDAD SAN SEBASTIAN                         CONTADOR AUDITOR Pendiente de revisión                   0                            143
+ I71S1C68J1V1         UNIVERSIDAD DE SANTIAGO DE CHILE               OBSTETRICIA Y PUERICULTURA Pendiente de revisión                   0                              2
+ I31S4C12J2V1            UNIVERSIDAD AUTONOMA DE CHILE                               PSICOLOGIA Pendiente de revisión                   0                             16
+ I75S2C54J1V1                  UNIVERSIDAD DEL BIO-BIO                           FONOAUDIOLOGIA Pendiente de revisión                   0                              2
+ I45S4C17J1V2               UNIVERSIDAD DEL DESARROLLO                               PSICOLOGIA Pendiente de revisión                   0                             21
+ I88S1C15J2V1 UNIVERSIDAD TECNICA FEDERICO SANTA MARIA              INGENIERIA CIVIL INDUSTRIAL Pendiente de revisión                   0                              9
+ I20S1C84J1V1                 UNIVERSIDAD ANDRES BELLO              INGENIERIA EN BIOTECNOLOGIA Pendiente de revisión                   0                              1
+I10S7C645J2V1                        UNIVERSIDAD MAYOR INGENIERIA EN ADMINISTRACION DE EMPRESAS Pendiente de revisión                   0                             19

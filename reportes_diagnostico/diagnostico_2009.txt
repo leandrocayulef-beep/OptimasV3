@@ -1,0 +1,28 @@
+=== INFORME DE DIAGNÓSTICO DE DATOS (2009) ===
+
+--- 1. ESTADO DE CONTEOS DE PROGRAMAS ---
+- Sin incidencias detectadas: 2601 programas
+- Pendiente de revisión: 1144 programas
+- Cero observado: verificar admisión: 1085 programas
+
+--- 2. MÉTRICAS GLOBALES DE ADMISIÓN ---
+- Total de programas observados: 4,830
+- Ingresantes identificados totales: 147,142
+- Registros de primer ingreso sin MRUN: 121
+- Registros con ingreso por revisar: 15,237
+
+--- 3. DETECCIÓN DE ANOMALÍAS DE DATO Y FORMATO ---
+- Duraciones fuera de rango (menos de 4 o más de 16 semestres): 93 programas
+
+--- 4. MUESTRA DE PROGRAMAS QUE REQUIEREN REVISIÓN (Top 10) ---
+ codigo_unico                                nomb_inst                                         nomb_carrera                      estado_conteo  registros_sin_mrun  registros_ingreso_por_revisar
+  I47S1C4J1V1                 UNIVERSIDAD DEL PACIFICO                                           PERIODISMO              Pendiente de revisión                   2                              0
+    I4M2009N1             UNIVERSIDAD CENTRAL DE CHILE                                              DERECHO              Pendiente de revisión                   0                            100
+ I88S1C13J1V1 UNIVERSIDAD TECNICA FEDERICO SANTA MARIA                      INGENIERIA CIVIL EN INFORMATICA              Pendiente de revisión                   0                             26
+ I76S1C77J1V1               UNIVERSIDAD DE LA FRONTERA PEDAGOGIA EN EDUCACION FISICA, DEPORTES Y RECREACION              Pendiente de revisión                   0                              1
+I81S21C16J2V1                  UNIVERSIDAD ARTURO PRAT                        PEDAGOGIA EN EDUCACION BASICA Cero observado: verificar admisión                   0                              0
+ I29S1C26J1V1                        UNIVERSIDAD UCINF                                       TRABAJO SOCIAL              Pendiente de revisión                   0                              7
+I84S17C69J2V1                 UNIVERSIDAD DE LOS LAGOS   INGENIERIA EJECUCION EN ADMINISTRACION DE EMPRESAS Cero observado: verificar admisión                   0                              0
+ I86S1C29J1V1 PONTIFICIA UNIVERSIDAD CATOLICA DE CHILE                                              DERECHO              Pendiente de revisión                   1                              0
+ I38S1C19J1V1          UNIVERSIDAD ADVENTISTA DE CHILE   PEDAGOGIA EN MUSICA MENCION EDUCACION EXTRAESCOLAR              Pendiente de revisión                   0                              1
+I54S13C67J1V1  UNIVERSIDAD TECNOLOGICA DE CHILE INACAP                           INGENIERIA EN CONSTRUCCION              Pendiente de revisión                   0                             26

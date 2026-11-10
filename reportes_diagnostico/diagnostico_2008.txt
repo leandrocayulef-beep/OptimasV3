@@ -1,0 +1,28 @@
+=== INFORME DE DIAGNÓSTICO DE DATOS (2008) ===
+
+--- 1. ESTADO DE CONTEOS DE PROGRAMAS ---
+- Sin incidencias detectadas: 2475 programas
+- Pendiente de revisión: 1119 programas
+- Cero observado: verificar admisión: 676 programas
+
+--- 2. MÉTRICAS GLOBALES DE ADMISIÓN ---
+- Total de programas observados: 4,270
+- Ingresantes identificados totales: 137,073
+- Registros de primer ingreso sin MRUN: 123
+- Registros con ingreso por revisar: 13,114
+
+--- 3. DETECCIÓN DE ANOMALÍAS DE DATO Y FORMATO ---
+- Duraciones fuera de rango (menos de 4 o más de 16 semestres): 103 programas
+
+--- 4. MUESTRA DE PROGRAMAS QUE REQUIEREN REVISIÓN (Top 10) ---
+ codigo_unico                   nomb_inst                                                                     nomb_carrera                      estado_conteo  registros_sin_mrun  registros_ingreso_por_revisar
+I87S1C107J1V1   UNIVERSIDAD DE CONCEPCION                                                     PEDAGOGIA EN ARTES PLASTICAS              Pendiente de revisión                   0                              9
+ I81S7C16J2V1     UNIVERSIDAD ARTURO PRAT                                                    PEDAGOGIA EN EDUCACION BASICA Cero observado: verificar admisión                   0                              0
+ I19S5C98J1V1 UNIVERSIDAD DE LAS AMERICAS                                                                     KINESIOLOGIA              Pendiente de revisión                   0                             11
+  I45M2008N36  UNIVERSIDAD DEL DESARROLLO INGENIERIA DE EJECUCION EN ADMINISTRACION MENCION EN FINANZAS Y COMERCIALIZACION              Pendiente de revisión                   0                              4
+ I70S1C64J1V1        UNIVERSIDAD DE CHILE                                              PLAN COMUN DE INGENIERIA Y CIENCIAS              Pendiente de revisión                   3                              0
+ I75S1C11J1V1     UNIVERSIDAD DEL BIO-BIO                                                  INGENIERIA CIVIL EN INFORMATICA              Pendiente de revisión                   0                             88
+  I19M2008N33 UNIVERSIDAD DE LAS AMERICAS                                             TECNICO UNIVERSITARIO EN COMPUTACION              Pendiente de revisión                   0                              2
+I10S6C182J1V1           UNIVERSIDAD MAYOR                                                             MEDICINA VETERINARIA              Pendiente de revisión                   0                             43
+  I19S4C7J2V1 UNIVERSIDAD DE LAS AMERICAS                                                                          DERECHO              Pendiente de revisión                   0                              7
+  I81M2008N63     UNIVERSIDAD ARTURO PRAT                     PEDAGOGIA EN EDUCACION BASICA MENCION LENGUAJE O MATEMATICAS              Pendiente de revisión                   0                             11

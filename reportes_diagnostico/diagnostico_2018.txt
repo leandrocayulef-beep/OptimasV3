@@ -1,0 +1,28 @@
+=== INFORME DE DIAGNÓSTICO DE DATOS (2018) ===
+
+--- 1. ESTADO DE CONTEOS DE PROGRAMAS ---
+- Sin incidencias detectadas: 2417 programas
+- Cero observado: verificar admisión: 1399 programas
+- Pendiente de revisión: 1239 programas
+
+--- 2. MÉTRICAS GLOBALES DE ADMISIÓN ---
+- Total de programas observados: 5,055
+- Ingresantes identificados totales: 158,550
+- Registros de primer ingreso sin MRUN: 146
+- Registros con ingreso por revisar: 10,093
+
+--- 3. DETECCIÓN DE ANOMALÍAS DE DATO Y FORMATO ---
+- Duraciones fuera de rango (menos de 4 o más de 16 semestres): 139 programas
+
+--- 4. MUESTRA DE PROGRAMAS QUE REQUIEREN REVISIÓN (Top 10) ---
+codigo_unico                                             nomb_inst                                                                                                                                 nomb_carrera                      estado_conteo  registros_sin_mrun  registros_ingreso_por_revisar
+I31S2C41J1V1                         UNIVERSIDAD AUTONOMA DE CHILE                                                                                                                                   ENFERMERIA              Pendiente de revisión                   0                              6
+I71S1C46J1V1                      UNIVERSIDAD DE SANTIAGO DE CHILE LICENCIATURA EN LINGÜISTICA APLICADA A LA TRADUCCION MENCION INGLES-JAPONES O INGLES-PORTUGUES / TRADUCTOR INGLES-JAPONES O INGLES-PORTUGUES              Pendiente de revisión                   1                              2
+ I87S1C9J1V1                             UNIVERSIDAD DE CONCEPCION                                                                                                         CIENCIAS POLITICAS Y ADMINISTRATIVAS Cero observado: verificar admisión                   0                              0
+ I69S1C5J1V1                           UNIVERSIDAD ALBERTO HURTADO                                                                                                                                   PERIODISMO              Pendiente de revisión                   0                              8
+I86S5C76J1V1              PONTIFICIA UNIVERSIDAD CATOLICA DE CHILE                                                                                                                                      QUIMICA              Pendiente de revisión                   1                              0
+I82S1C12J1V1 UNIVERSIDAD METROPOLITANA DE CIENCIAS DE LA EDUCACION                                         LICENCIATURA EN EDUCACION Y PEDAGOGIA EN EDUCACION DIFERENCIAL ESPECIALIDAD PROBLEMAS DE APRENDIZAJE              Pendiente de revisión                   0                              1
+I76S1C95J1V1                            UNIVERSIDAD DE LA FRONTERA                                                                                                                   INGENIERIA CIVIL AMBIENTAL              Pendiente de revisión                   0                              2
+I80S1C18J1V2                               UNIVERSIDAD DE TARAPACA                                                                                                                 PROFESOR DE EDUCACION FISICA              Pendiente de revisión                   0                             48
+I89S1C78J1V1         PONTIFICIA UNIVERSIDAD CATOLICA DE VALPARAISO                                                                      PEDAGOGIA EN BIOLOGIA Y CIENCIAS NATURALES Y/O LICENCIATURA EN BIOLOGIA              Pendiente de revisión                   0                              1
+ I23S2C1J1V1                             UNIVERSIDAD ADOLFO IBAÑEZ                                                                                                                         INGENIERIA COMERCIAL              Pendiente de revisión                   0                            147

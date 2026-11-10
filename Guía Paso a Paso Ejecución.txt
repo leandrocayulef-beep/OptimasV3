@@ -1,0 +1,30 @@
+################### Guía Paso a Paso: Ejecución del Proyecto en VS Code con venv ###################
+Para volver a abrir y ejecutar el proyecto cualquier otro día en tu entorno Ubuntu/VS Code, sigue esta secuencia:
+
+Paso 1: Abrir la carpeta del proyecto en VS Code
+Abre tu terminal de Ubuntu (Ctrl + Alt + T).
+
+- Navega a la carpeta de tu proyecto y ábrela en VS Code:
+-------------------------------------------------------------------------------------------------------------------
+cd ~/Desktop/Carreras
+code .
+-------------------------------------------------------------------------------------------------------------------
+
+- Paso 2: Activar el Entorno Virtual (venv) en la Terminal
+En la terminal integrada de VS Code (Ctrl + Ñ o Menú > Terminal > New Terminal), activa el entorno ejecutando:
+-------------------------------------------------------------------------------------------------------------------
+source venv/bin/activate
+-------------------------------------------------------------------------------------------------------------------
+
+Paso 3: Seleccionar el Kernel de Python en el Notebook
+Abre tu archivo de cuaderno Jupyter (.ipynb) o archivo de código (.py estructurado con celdas # %%).
+
+En la esquina superior derecha de VS Code, haz clic en Select Kernel (o Elegir Kernel).
+
+Selecciona Python Environments... y elige el ejecutable dentro de tu entorno virtual:
+./venv/bin/python
+
+Paso 4: Ejecución Modular
+Para ejecutar celda por celda: Presiona Shift + Enter sobre el bloque correspondiente.
+
+Para reiniciar la memoria o ejecutar todo desde cero: Haz clic en Restart Kernel y luego en Run All.

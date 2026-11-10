@@ -1,0 +1,28 @@
+=== INFORME DE DIAGNÓSTICO DE DATOS (2007) ===
+
+--- 1. ESTADO DE CONTEOS DE PROGRAMAS ---
+- Sin incidencias detectadas: 2706 programas
+- Pendiente de revisión: 679 programas
+- Cero observado: verificar admisión: 611 programas
+
+--- 2. MÉTRICAS GLOBALES DE ADMISIÓN ---
+- Total de programas observados: 3,996
+- Ingresantes identificados totales: 131,281
+- Registros de primer ingreso sin MRUN: 52
+- Registros con ingreso por revisar: 17,862
+
+--- 3. DETECCIÓN DE ANOMALÍAS DE DATO Y FORMATO ---
+- Duraciones fuera de rango (menos de 4 o más de 16 semestres): 114 programas
+
+--- 4. MUESTRA DE PROGRAMAS QUE REQUIEREN REVISIÓN (Top 10) ---
+codigo_unico                                       nomb_inst                                          nomb_carrera                      estado_conteo  registros_sin_mrun  registros_ingreso_por_revisar
+  I81M2007N7                         UNIVERSIDAD ARTURO PRAT                         PEDAGOGIA EN EDUCACION BASICA Cero observado: verificar admisión                   0                              0
+ I85M2007N48           UNIVERSIDAD TECNOLOGICA METROPOLITANA                           TECNICO SUPERIOR INDUSTRIAL Cero observado: verificar admisión                   0                              0
+I10S2C19J1V1                               UNIVERSIDAD MAYOR                                           ODONTOLOGIA              Pendiente de revisión                   0                              2
+I75S1C11J1V1                         UNIVERSIDAD DEL BIO-BIO                       INGENIERIA CIVIL EN INFORMATICA              Pendiente de revisión                   0                              2
+I93S1C23J1V1 UNIVERSIDAD CATOLICA DE LA SANTISIMA CONCEPCION                               LICENCIATURA EN DERECHO              Pendiente de revisión                   0                              2
+I81S4C88J1V1                         UNIVERSIDAD ARTURO PRAT INGENIERIA DE EJECUCION EN ADMINISTRACION DE EMPRESAS Cero observado: verificar admisión                   0                              0
+ I11S1C3J1V1     UNIVERSIDAD ACADEMIA DE HUMANISMO CRISTIANO                                        TRABAJO SOCIAL              Pendiente de revisión                   0                              1
+  I77M2007N4                       UNIVERSIDAD DE MAGALLANES                             INGENIERIA CIVIL MECANICA Cero observado: verificar admisión                   0                              0
+I75S1C29J1V1                         UNIVERSIDAD DEL BIO-BIO                                  INGENIERIA COMERCIAL              Pendiente de revisión                   0                              7
+I75S1C15J1V1                         UNIVERSIDAD DEL BIO-BIO                INGENIERIA DE EJECUCION EN ELECTRONICA              Pendiente de revisión                   0                              2

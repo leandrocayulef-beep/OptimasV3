@@ -1,0 +1,28 @@
+=== INFORME DE DIAGNÓSTICO DE DATOS (2014) ===
+
+--- 1. ESTADO DE CONTEOS DE PROGRAMAS ---
+- Pendiente de revisión: 2664 programas
+- Sin incidencias detectadas: 1514 programas
+- Cero observado: verificar admisión: 884 programas
+
+--- 2. MÉTRICAS GLOBALES DE ADMISIÓN ---
+- Total de programas observados: 5,062
+- Ingresantes identificados totales: 147,688
+- Registros de primer ingreso sin MRUN: 63
+- Registros con ingreso por revisar: 50,331
+
+--- 3. DETECCIÓN DE ANOMALÍAS DE DATO Y FORMATO ---
+- Duraciones fuera de rango (menos de 4 o más de 16 semestres): 119 programas
+
+--- 4. MUESTRA DE PROGRAMAS QUE REQUIEREN REVISIÓN (Top 10) ---
+  codigo_unico                               nomb_inst                                              nomb_carrera         estado_conteo  registros_sin_mrun  registros_ingreso_por_revisar
+  I19S5C98J1V1             UNIVERSIDAD DE LAS AMERICAS                                              KINESIOLOGIA Pendiente de revisión                   0                             77
+  I45S2C33J1V1              UNIVERSIDAD DEL DESARROLLO                                                ENFERMERIA Pendiente de revisión                   0                              9
+   I87S1C9J1V1               UNIVERSIDAD DE CONCEPCION                      CIENCIAS POLITICAS Y ADMINISTRATIVAS Pendiente de revisión                   0                              3
+  I77S1C30J1V1               UNIVERSIDAD DE MAGALLANES                                            TRABAJO SOCIAL Pendiente de revisión                   0                              1
+ I54S32C47J2V1 UNIVERSIDAD TECNOLOGICA DE CHILE INACAP INGENIERIA EN ADMINISTRACION DE EMPRESAS MENCION FINANZAS Pendiente de revisión                   0                            144
+  I31S2C46J1V1           UNIVERSIDAD AUTONOMA DE CHILE                                            FONOAUDIOLOGIA Pendiente de revisión                   0                              2
+  I7S1C363J2V1                 UNIVERSIDAD BOLIVARIANA                                    ADMINISTRACION PUBLICA Pendiente de revisión                   0                             20
+  I19S3C20J2V1             UNIVERSIDAD DE LAS AMERICAS                             PEDAGOGIA EN EDUCACION BASICA Pendiente de revisión                   0                             17
+  I76S1C95J1V1              UNIVERSIDAD DE LA FRONTERA                                INGENIERIA CIVIL AMBIENTAL Pendiente de revisión                   0                              4
+I13S12C160J1V1                 UNIVERSIDAD SANTO TOMAS                                            FONOAUDIOLOGIA Pendiente de revisión                   0                              2

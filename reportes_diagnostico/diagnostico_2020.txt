@@ -1,0 +1,28 @@
+=== INFORME DE DIAGNÓSTICO DE DATOS (2020) ===
+
+--- 1. ESTADO DE CONTEOS DE PROGRAMAS ---
+- Sin incidencias detectadas: 2129 programas
+- Cero observado: verificar admisión: 1627 programas
+- Pendiente de revisión: 1121 programas
+
+--- 2. MÉTRICAS GLOBALES DE ADMISIÓN ---
+- Total de programas observados: 4,877
+- Ingresantes identificados totales: 141,660
+- Registros de primer ingreso sin MRUN: 95
+- Registros con ingreso por revisar: 8,851
+
+--- 3. DETECCIÓN DE ANOMALÍAS DE DATO Y FORMATO ---
+- Duraciones fuera de rango (menos de 4 o más de 16 semestres): 137 programas
+
+--- 4. MUESTRA DE PROGRAMAS QUE REQUIEREN REVISIÓN (Top 10) ---
+ codigo_unico                        nomb_inst                                                                                                                                 nomb_carrera                      estado_conteo  registros_sin_mrun  registros_ingreso_por_revisar
+ I31S2C41J1V1    UNIVERSIDAD AUTONOMA DE CHILE                                                                                                                                   ENFERMERIA              Pendiente de revisión                   0                              6
+ I71S1C46J1V1 UNIVERSIDAD DE SANTIAGO DE CHILE LICENCIATURA EN LINGÜISTICA APLICADA A LA TRADUCCION MENCION INGLES-JAPONES O INGLES-PORTUGUES / TRADUCTOR INGLES-JAPONES O INGLES-PORTUGUES              Pendiente de revisión                   0                              1
+  I69S1C5J1V1      UNIVERSIDAD ALBERTO HURTADO                                                                                                                                   PERIODISMO              Pendiente de revisión                   0                              7
+  I3S1C46J1V1       UNIVERSIDAD DIEGO PORTALES                                                                                                                                   ENFERMERIA              Pendiente de revisión                   0                             45
+ I76S1C95J1V1       UNIVERSIDAD DE LA FRONTERA                                                                                                                   INGENIERIA CIVIL AMBIENTAL              Pendiente de revisión                   0                              1
+ I80S1C18J1V2          UNIVERSIDAD DE TARAPACA                                                                                                                 PROFESOR DE EDUCACION FISICA              Pendiente de revisión                   0                             43
+  I23S2C1J1V1        UNIVERSIDAD ADOLFO IBAÑEZ                                                                                                                         INGENIERIA COMERCIAL              Pendiente de revisión                   0                             76
+ I10S4C31J1V1                UNIVERSIDAD MAYOR                                                                                                                                   PSICOLOGIA              Pendiente de revisión                   0                              4
+ I70S1C49J1V1             UNIVERSIDAD DE CHILE                                                                                                                   INGENIERIA CIVIL ELECTRICA Cero observado: verificar admisión                   0                              0
+I94S1C186J1V1   UNIVERSIDAD CATOLICA DE TEMUCO                                                                                                                            TECNOLOGIA MEDICA              Pendiente de revisión                   0                              5

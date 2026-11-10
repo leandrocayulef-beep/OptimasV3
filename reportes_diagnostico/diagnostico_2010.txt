@@ -1,0 +1,28 @@
+=== INFORME DE DIAGNÓSTICO DE DATOS (2010) ===
+
+--- 1. ESTADO DE CONTEOS DE PROGRAMAS ---
+- Sin incidencias detectadas: 2655 programas
+- Pendiente de revisión: 1326 programas
+- Cero observado: verificar admisión: 1049 programas
+
+--- 2. MÉTRICAS GLOBALES DE ADMISIÓN ---
+- Total de programas observados: 5,030
+- Ingresantes identificados totales: 155,852
+- Registros de primer ingreso sin MRUN: 80
+- Registros con ingreso por revisar: 21,731
+
+--- 3. DETECCIÓN DE ANOMALÍAS DE DATO Y FORMATO ---
+- Duraciones fuera de rango (menos de 4 o más de 16 semestres): 61 programas
+
+--- 4. MUESTRA DE PROGRAMAS QUE REQUIEREN REVISIÓN (Top 10) ---
+  codigo_unico                                nomb_inst                                         nomb_carrera                      estado_conteo  registros_sin_mrun  registros_ingreso_por_revisar
+  I19S5C98J1V1              UNIVERSIDAD DE LAS AMERICAS                                         KINESIOLOGIA              Pendiente de revisión                   0                              9
+  I88S1C13J1V1 UNIVERSIDAD TECNICA FEDERICO SANTA MARIA                      INGENIERIA CIVIL EN INFORMATICA              Pendiente de revisión                   0                             30
+  I76S1C77J1V1               UNIVERSIDAD DE LA FRONTERA PEDAGOGIA EN EDUCACION FISICA, DEPORTES Y RECREACION              Pendiente de revisión                   0                              1
+ I84S17C69J2V1                 UNIVERSIDAD DE LOS LAGOS   INGENIERIA EJECUCION EN ADMINISTRACION DE EMPRESAS Cero observado: verificar admisión                   0                              0
+I54S33C113J1V1  UNIVERSIDAD TECNOLOGICA DE CHILE INACAP                                       PSICOPEDAGOGIA              Pendiente de revisión                   0                            115
+ I54S13C67J1V1  UNIVERSIDAD TECNOLOGICA DE CHILE INACAP                           INGENIERIA EN CONSTRUCCION              Pendiente de revisión                   0                             35
+   I75S2C7J1V1                  UNIVERSIDAD DEL BIO-BIO                    PEDAGOGIA EN EDUCACION PARVULARIA              Pendiente de revisión                   0                              3
+    I7S1C4J2V1                  UNIVERSIDAD BOLIVARIANA                                              DERECHO              Pendiente de revisión                   0                             79
+  I75S1C11J1V1                  UNIVERSIDAD DEL BIO-BIO                      INGENIERIA CIVIL EN INFORMATICA              Pendiente de revisión                   0                             56
+  I19S1C12J1V1              UNIVERSIDAD DE LAS AMERICAS               INGENIERIA DE EJECUCION EN INFORMATICA              Pendiente de revisión                   0                             14

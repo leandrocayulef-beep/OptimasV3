@@ -1,0 +1,244 @@
+EXPLICACIÓN DEL NOTEBOOK OPTIMASCARRERAS (VSCODE V2)
+Fecha de elaboración: 10 de noviembre de 2026
+Proyecto: /home/leandro/Desktop/Carreras
+Notebook documentado: OptimasCarreras(vscode_V2).ipynb
+
+======================================================================
+1. RESUMEN DE LA REVISIÓN Y CAMBIOS REALIZADOS
+======================================================================
+
+El notebook contiene 24 celdas con código ejecutable (bloques 1 a 24) y 11 celdas de código vacías al final, preparadas como espacios para bloques futuros. Revisé la estructura del proyecto, los CSV, los Parquet existentes, el Excel de homologación, el script Python, las salidas del notebook y el entorno virtual.
+
+El bloqueo que impedía ejecutar las operaciones Parquet era la ausencia de pyarrow en venv. Lo instalé en ese entorno (versión 26.0.1) y agregué requirements.txt para documentar las dependencias del proyecto. También hice estos ajustes al notebook:
+- Bloque 1: ahora detecta al inicio si falta pyarrow y muestra cómo instalar las dependencias.
+- Bloque 4: ahora detiene el flujo si falta la carpeta o no hay CSV; registra los archivos que fallen y evita seguir con una base parcial.
+- Bloque 5: ahora detiene el flujo con un mensaje claro si no existen los resúmenes anuales que debe consolidar.
+- Bloque 18: protege el cálculo porcentual si la suma real de 2025 es cero.
+- Bloque 19: conserva los nombres originales y puede volver a ejecutarse sin degradar la homologación.
+- Limpié los resultados de ejecución guardados en el notebook para que no siga apareciendo el error antiguo de pyarrow.
+
+Validé que el notebook sea JSON válido y que todas sus celdas no vacías compilen. Ejecuté el flujo de consolidación usando los 19 resúmenes anuales que ya existían, y ejecuté las etapas de diagnóstico, modelamiento y proyección. No reprocesé desde cero los CSV originales: ocupan aproximadamente 13 GB y el objetivo de esta pasada fue reparar y validar el flujo con los Parquet disponibles.
+
+======================================================================
+2. EXPLICACIÓN BLOQUE A BLOQUE
+======================================================================
+
+BLOQUE 1 — Configuración inicial (celda de código 1)
+Qué hace:
+Importa las herramientas comunes, define la carpeta actual como raíz del proyecto, establece las rutas de matriculaaaas y resultados_parquet y crea la carpeta de resultados si no existe.
+Qué corregí:
+Añadí una comprobación temprana de pyarrow para explicar el problema de Parquet antes de que falle una celda avanzada.
+Qué obtuve:
+La raíz se resolvió como /home/leandro/Desktop/Carreras; se detectaron correctamente las carpetas de entrada y salida. pyarrow quedó instalado en el venv.
+
+BLOQUE 2 — Procesamiento de un año (celda de código 3)
+Qué hace:
+Define procesar_anio. Lee un CSV, normaliza nombres de columnas, conserva los campos como texto, filtra universidades y programas de pregrado, revisa el año de primer ingreso, cuenta estudiantes identificados y registros pendientes, detecta conflictos en atributos y genera columnas de diagnóstico. Guarda un resumen anual en Parquet.
+Qué corregí:
+No cambié la lógica sustantiva de conteo. El motor Parquet faltante ya está instalado y la celda inicial lo comprueba.
+Qué obtuve:
+No ejecuté esta función sobre los 19 CSV de nuevo en esta pasada. Los resúmenes anuales preexistentes cubren 2007–2025; el CSV original ocupa aproximadamente 13 GB en conjunto. La ejecución completa desde CSV se hará al correr el notebook desde el inicio.
+
+BLOQUE 3 — Informe anual de diagnóstico (celda de código 5)
+Qué hace:
+Define exportar_diagnostico_ia. Resume estados de conteo, ingresantes, registros sin MRUN y datos que requieren revisión; imprime una muestra de programas pendientes y devuelve el informe como texto.
+Qué corregí:
+No cambié las métricas de esta función. El bloque 4 ahora guarda los errores de procesamiento y no oculta un informe incompleto.
+Qué obtuve:
+No volví a generar informes anuales desde los CSV en esta pasada. Los informes se producirán durante el procesamiento completo.
+
+BLOQUE 4 — Procesamiento masivo de CSV (celda de código 7)
+Qué hace:
+Busca archivos CSV, extrae el año del nombre de cada archivo, llama al procesamiento anual, genera un informe por año y lo guarda en reportes_diagnostico.
+Qué corregí:
+Antes, los errores quedaban impresos, pero el notebook podía continuar como si el proceso hubiera terminado bien. Ahora acumula los fallos y detiene el flujo con el nombre de cada archivo y su error. También falla claramente si no encuentra CSV.
+Qué obtuve:
+No reprocesé los CSV originales en esta pasada. Esta etapa queda preparada para ejecutarse desde el inicio con el venv corregido.
+
+BLOQUE 5 — Consolidación histórica (celda de código 9)
+Qué hace:
+Lee los resúmenes anuales Parquet, los concatena y verifica la unicidad de la clave año + código de programa. Escribe base_historica_2007_2025_provisional.parquet.
+Qué corregí:
+Agregué un error explícito si no hay resúmenes anuales, evitando que las celdas posteriores fallen con variables indefinidas.
+Qué obtuve:
+Se cargaron 19 archivos, correspondientes a 2007–2025; 92.396 filas consolidadas; no se detectaron claves duplicadas; archivo generado de aproximadamente 2,90 MB.
+
+BLOQUE 6 — Diagnóstico histórico global (celda de código 11)
+Qué hace:
+Resume por año programas, ingresantes utilizables y estados de conteo; calcula indicadores económicos y estructurales; cuenta instituciones y códigos de programa y escribe un informe TXT.
+Qué corregí:
+No modifiqué las reglas de cálculo. Verifiqué el bloque usando la base consolidada.
+Qué obtuve:
+El panel cubre 19 años, 14.978 códigos de programa distintos y 67 instituciones. El promedio observado es 6,2 años por programa. Se encontraron 834 registros de programa-año con arancel en cero y 2.398 duraciones atípicas según el criterio del notebook. Se generó diagnostico_historico_global_2007_2025.txt.
+
+BLOQUE 7 — Consulta SQL con DuckDB (celda de código 13)
+Qué hace:
+Consulta directamente el Parquet para mostrar las 10 instituciones con mayor matrícula histórica de primer ingreso identificada, sin cargar la tabla completa mediante pandas.
+Qué corregí:
+No cambié la consulta.
+Qué obtuve:
+La consulta funcionó. Entre los primeros resultados aparecen Universidad Andrés Bello (153.773), Universidad San Sebastián (86.194) y Pontificia Universidad Católica de Chile (84.795) ingresantes acumulados según el filtro utilizado.
+
+BLOQUE 8 — Tablero de diagnóstico de calidad (celda de código 15)
+Qué hace:
+Construye y guarda una figura multipanel con gráficos de evolución temporal, conteos, ingresantes y otras métricas de calidad del panel histórico.
+Qué corregí:
+No cambié los cálculos gráficos.
+Qué obtuve:
+Se generó graficos_diagnostico/tablero_diagnostico_longitudinal.png. El entorno no tiene una interfaz gráfica interactiva durante la validación, pero la imagen se guardó correctamente.
+
+BLOQUE 9 — Recuperación de conteos (celda de código 17)
+Qué hace:
+Aplica una regla secundaria a registros pendientes de revisión desde 2013 cuando no faltan identificadores MRUN. Guarda ingresantes_corregidos y el estado corregido.
+Qué corregí:
+No modifiqué la regla de recuperación.
+Qué obtuve:
+Se generó base_historica_2007_2025_corregida.parquet con 92.396 filas. Según esta regla, los totales corregidos por año fueron: 2013: 201.292; 2014: 197.783; 2015: 197.791; 2016: 202.962; 2017: 205.711; 2018: 168.335; 2019: 160.142; 2020: 150.053; 2021: 152.236; 2022: 158.782; 2023: 187.701; 2024: 194.027; 2025: 211.659. Estos son resultados de la regla del proyecto y requieren la interpretación metodológica correspondiente.
+
+BLOQUE 10 — Continuidad del panel (celda de código 19)
+Qué hace:
+Cuenta cuántos años aparece cada código único y clasifica programas continuos, recientes o sin oferta desde 2020. Guarda el panel limpio.
+Qué corregí:
+No cambié los criterios de clasificación.
+Qué obtuve:
+14.978 códigos históricos; 960 presentes los 19 años (6,4%); 1.862 con primer año desde 2020; 8.342 cuyo último año observado fue anterior a 2020; promedio de 6,2 años. Se generó base_historica_2007_2025_limpia.parquet.
+
+BLOQUE 11 — Normalización de texto (celda de código 21)
+Qué hace:
+Convierte nombres a mayúsculas, elimina tildes y espacios repetidos, y aplica equivalencias de nombres institucionales. Guarda la base estandarizada.
+Qué corregí:
+No cambié el diccionario ni las reglas de normalización.
+Qué obtuve:
+67 nombres institucionales distintos antes y después de la normalización institucional; nombres distintos de carrera pasaron de 3.756 a 3.749. Se generó base_historica_2007_2025_estandarizada.parquet.
+
+BLOQUE 12 — Variables para el modelo (celda de código 23)
+Qué hace:
+Ordena por programa y año y construye el objetivo de matrícula, rezagos de uno y dos años, promedio móvil de tres años, variación interanual y años en oferta.
+Qué corregí:
+No cambié las fórmulas de variables.
+Qué obtuve:
+92.396 objetivos disponibles; 77.418 registros con rezago 1 y promedio móvil; 67.492 con rezago 2. Se generó base_historica_2007_2025_features.parquet.
+
+BLOQUE 13 — Matriz final de entrenamiento (celda de código 25)
+Qué hace:
+Filtra registros que tienen objetivo y al menos un año previo. Guarda la matriz usada para evaluar y entrenar los modelos.
+Qué corregí:
+No cambié el criterio de inclusión.
+Qué obtuve:
+77.418 observaciones entre 2008 y 2025, con 9.926 programas y 66 instituciones. Se generó matriz_entrenamiento_ml.parquet.
+
+BLOQUE 14 — Referencia Naive (celda de código 27)
+Qué hace:
+Separa entrenamiento hasta 2022 y evaluación entre 2023 y 2025. Compara matrícula observada contra el último año conocido.
+Qué corregí:
+No cambié la separación ni las métricas.
+Qué obtuve:
+64.087 filas de entrenamiento y 13.331 de evaluación. MAE 10,31; RMSE 29,31; R² 0,8567.
+
+BLOQUE 15 — Random Forest y XGBoost (celda de código 29)
+Qué hace:
+Entrena ambos modelos de regresión con variables numéricas históricas y los compara con Naive en el período de evaluación.
+Qué corregí:
+No cambié los modelos.
+Qué obtuve:
+Random Forest: MAE 12,40; RMSE 46,45; R² 0,6402. XGBoost: MAE 12,28; RMSE 44,63; R² 0,6677. En esta evaluación ambos rindieron por debajo de Naive según esas métricas.
+
+BLOQUE 16 — Modelo LightGBM de variación Delta (celda de código 31)
+Qué hace:
+Predice el cambio entre años (Delta) y lo suma al rezago 1, con un piso de cero. Compara el resultado con Naive.
+Qué corregí:
+No modifiqué la formulación.
+Qué obtuve:
+LightGBM Delta: MAE 11,79; RMSE 31,20; R² 0,8377. En la evaluación ejecutada, Naive obtuvo mejores métricas.
+
+BLOQUE 17 — Ensamble adaptativo por volatilidad (celda de código 33)
+Qué hace:
+Calcula la volatilidad histórica por programa. Si supera 5 estudiantes, utiliza la predicción LightGBM; de lo contrario conserva la predicción Naive.
+Qué corregí:
+No cambié el umbral ni la regla del ensamble.
+Qué obtuve:
+Ensamble: MAE 11,26; RMSE 29,80; R² 0,8519. Naive: MAE 10,31; RMSE 29,31; R² 0,8567. El ensamble funcionó, aunque no superó a Naive en estas métricas de evaluación.
+
+BLOQUE 18 — Proyección para 2026 (celda de código 35)
+Qué hace:
+Reentrena LightGBM con todo el historial, prepara la cohorte activa 2025, actualiza rezagos y promedio móvil, calcula la volatilidad por programa y produce la proyección 2026.
+Qué corregí:
+Evité una división por cero en el cálculo de variación global si la matrícula real 2025 fuese cero.
+Qué obtuve:
+Se proyectaron 4.259 programas activos. Matrícula real 2025: 196.312; proyección 2026: 197.257; variación estimada: +0,48%. Se guardaron el Parquet y el CSV de proyecciones.
+
+BLOQUE 19 — Homologación de carreras (celda de código 37)
+Qué hace:
+Lee la hoja Detalle del Excel carreras_agrupadas.xlsx y aplica equivalencias entre nombres originales y carreras agrupadas sobre archivos Parquet.
+Qué corregí:
+Ahora utiliza la columna de respaldo original cuando ya existe y solo la crea la primera vez. Así, repetir el bloque no toma el valor ya agrupado como si fuera el nombre original.
+Qué obtuve:
+La hoja contiene 1.107 equivalencias. Probé el bloque dos veces sobre una muestra de 25 filas: los nombres originales y agrupados permanecieron iguales en ambas ejecuciones. No volví a aplicar la homologación sobre todos los Parquet del proyecto durante esta validación.
+
+BLOQUE 20 — Agregación por carrera e institución (celda de código 39)
+Qué hace:
+Enriquece la proyección con carrera agrupada, área y volatilidad, y suma matrícula real y proyectada por combinación de carrera e institución.
+Qué corregí:
+No cambié la lógica de agregación.
+Qué obtuve:
+2.116 combinaciones carrera-institución y 322 carreras agrupadas. Totales: 196.312 para 2025 y 197.257 para 2026, variación +0,48%. La tabla agrupada se guardó en Parquet.
+
+BLOQUE 21 — Escenarios 2026–2028 (celda de código 41)
+Qué hace:
+Crea escenarios Base, Optimista y Pesimista por programa y año, con 2025 como referencia. El optimista y pesimista modifican la base según la desviación histórica y aplican piso cero al escenario pesimista.
+Qué corregí:
+No cambié los supuestos de escenarios.
+Qué obtuve:
+Se generaron 51.108 filas (4.259 programas × 3 escenarios × 4 años). Totales por año:
+2025: 196.312 en los tres escenarios.
+2026: Base 197.257; Optimista 302.328; Pesimista 133.307.
+2027: Base 197.257; Optimista 407.466; Pesimista 92.400.
+2028: Base 197.257; Optimista 512.532; Pesimista 66.808.
+Los resultados optimista y pesimista dependen fuertemente de la desviación histórica individual y del supuesto acumulativo empleado.
+
+BLOQUE 22 — Tablero ejecutivo de proyección (celda de código 43)
+Qué hace:
+Genera cuatro gráficos: carreras con mayor crecimiento, variación por área, escenarios 2025–2028 y mapa de calor por área e institución.
+Qué corregí:
+No cambié las visualizaciones.
+Qué obtuve:
+Se guardó graficos_diagnostico/tablero_proyecciones_2026.png.
+
+BLOQUE 23 — Consultas estratégicas (celda de código 45)
+Qué hace:
+Usa DuckDB para consultar Parquet y mostrar instituciones con mayor caída, carreras con mayor rango entre escenarios y totales por año.
+Qué corregí:
+No cambié las consultas.
+Qué obtuve:
+La consulta se ejecutó. Las mayores caídas netas mostradas incluyen Universidad de Aconcagua (-209), Universidad del Bío-Bío (-191) y Universidad Técnica Federico Santa María (-190). En 2028, las mayores diferencias entre escenario optimista y pesimista incluyeron Ingeniería Comercial (27.986) y Psicología (24.570). Los totales por escenario coinciden con el Bloque 21.
+
+BLOQUE 24 — Reporte ejecutivo Excel (celda de código 47)
+Qué hace:
+Crea un libro Excel con KPIs del sistema, proyección por carrera e institución y resumen de escenarios. Aplica formato a encabezados, filtros, paneles congelados y formatos numéricos.
+Qué corregí:
+No cambié la estructura del reporte.
+Qué obtuve:
+Se generó Reporte_Ejecutivo_Matricula_2026.xlsx con 7 indicadores, 2.116 filas de proyección agrupada y 12 filas de escenarios (tres escenarios por cuatro años).
+
+BLOQUES 25 A 35 — Celdas vacías del final del notebook
+Qué contienen:
+Son celdas de código vacías intercaladas con títulos de bloque. No tienen instrucciones ejecutables.
+Qué corregí u obtuve:
+No añadí contenido ni resultados; se dejaron como espacios reservados para trabajo futuro.
+
+======================================================================
+3. ARCHIVOS RELEVANTES
+======================================================================
+
+- Notebook corregido: OptimasCarreras(vscode_V2).ipynb
+- Dependencias documentadas: requirements.txt
+- Proyecciones: resultados_parquet/proyecciones_matricula_2026.parquet y .csv
+- Escenarios: resultados_parquet/proyecciones_escenarios_2026_2028.parquet
+- Tabla agrupada: resultados_parquet/proyecciones_2026_agrupadas.parquet
+- Gráfico de diagnóstico: graficos_diagnostico/tablero_diagnostico_longitudinal.png
+- Gráfico de proyección: graficos_diagnostico/tablero_proyecciones_2026.png
+- Reporte ejecutivo: Reporte_Ejecutivo_Matricula_2026.xlsx
+
+Para reconstruir las dependencias en el futuro, desde la carpeta del proyecto ejecuta:
+./venv/bin/pip install -r requirements.txt
+Luego selecciona ./venv/bin/python como kernel de Jupyter en VS Code.

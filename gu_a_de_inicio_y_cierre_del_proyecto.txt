@@ -1,0 +1,118 @@
+====================================================================
+ GUÍA DE USO: INICIO, EJECUCIÓN Y CIERRE DEL PROYECTO MINEDUC
+====================================================================
+
+Proyecto: análisis histórico y proyección de matrícula de primer ingreso
+Período procesado: 2007–2025 | Proyección principal: 2026
+Carpeta del proyecto: /home/leandro/Escritorio/Carreras
+Notebook principal: OptimasCarreras(vscode_V2).ipynb
+Entorno virtual esperado: venv
+
+--------------------------------------------------------------------
+1. PREPARAR Y ABRIR EL PROYECTO
+--------------------------------------------------------------------
+
+Abre una terminal y ejecuta:
+
+   cd /home/leandro/Escritorio/Carreras
+   source venv/bin/activate
+   code .
+
+En VS Code abre OptimasCarreras(vscode_V2).ipynb y selecciona el kernel
+del entorno venv (Python 3.x). Los CSV anuales deben estar en la carpeta
+matriculaaaas y la matriz de homologación carreras_agrupadas.xlsx en la
+raíz del proyecto. El notebook busca las rutas desde la carpeta actual.
+
+Si el entorno necesita paquetes, instala en venv las dependencias usadas
+por el notebook: pandas, pyarrow, duckdb, matplotlib, seaborn, numpy,
+scikit-learn, lightgbm, openpyxl e ipykernel.
+
+--------------------------------------------------------------------
+2. EJECUTAR EL FLUJO
+--------------------------------------------------------------------
+
+Usa Run All para ejecutar el notebook completo, de arriba hacia abajo.
+También puedes ejecutar celdas secuencialmente con Shift + Enter. No
+omitas bloques intermedios: cada etapa prepara archivos que consumen las
+siguientes. Si un bloque falla, corrige la causa y vuelve a ejecutar desde
+la etapa afectada.
+
+El flujo implementado llega al bloque 24 y realiza estas etapas:
+
+1) Procesa los CSV anuales, filtra universidades y pregrado, audita
+   registros y crea resúmenes Parquet e informes diagnósticos.
+2) Consolida los años 2007–2025, comprueba la clave cat_periodo +
+   codigo_unico y analiza cobertura y calidad longitudinal.
+3) Aplica reglas de recuperación, clasifica la historia de programas,
+   estandariza nombres, construye variables temporales y prepara la matriz
+   para modelamiento.
+4) Compara el benchmark Naive (último valor observado), LightGBM Delta y
+   un ensamble adaptativo. Después proyecta 2026 para los programas activos
+   en 2025.
+5) Homologa carreras con carreras_agrupadas.xlsx, agrega las proyecciones
+   por carrera e institución, construye escenarios 2026–2028 y exporta
+   visualizaciones y un reporte ejecutivo Excel.
+
+--------------------------------------------------------------------
+3. RESULTADOS MÁS RECIENTES REGISTRADOS EN EL NOTEBOOK
+--------------------------------------------------------------------
+
+- Se procesaron 19 archivos anuales, de 2007 a 2025.
+- La base provisional consolidada contiene 92.396 filas programa-año y
+  pasó la comprobación de unicidad de (cat_periodo, codigo_unico).
+- Para el test 2023–2025, el benchmark Naive obtuvo MAE 10,31, RMSE 29,31
+  y R² 0,857. LightGBM Delta obtuvo MAE 11,79, RMSE 31,20 y R² 0,838;
+  el ensamble adaptativo obtuvo MAE 11,26, RMSE 29,80 y R² 0,852. En esa
+  evaluación, el benchmark Naive tuvo el menor MAE y RMSE.
+- Proyección 2026: 4.259 programas; 196.312 ingresantes reales en 2025 y
+  197.257 proyectados para 2026 (+0,48%).
+- La agregación por carrera e institución contiene 2.116 filas y 322
+  carreras agrupadas.
+- El reporte ejecutivo se exportó como
+  Reporte_Ejecutivo_Matricula_2026.xlsx (7 indicadores, 2.116 filas de
+  proyección y 12 filas de escenarios).
+
+Los escenarios son ejercicios de sensibilidad: mantienen la base de 2026
+en 2027–2028 y suman o restan acumulativamente 1,5 desviaciones estándar
+históricas. En la última ejecución registrada, sus totales fueron:
+
+   Año       Base       Optimista       Pesimista
+   2025      196.312       196.312          196.312
+   2026      197.257       302.328          133.307
+   2027      197.257       407.466           92.400
+   2028      197.257       512.532           66.808
+
+La amplitud de estos escenarios es grande; interprétalos como sensibilidad
+a volatilidad y no como pronósticos puntuales equivalentes a la proyección
+principal. Los resultados anteriores son los outputs guardados en el
+notebook y pueden cambiar al reejecutarlo con datos o código actualizados.
+
+--------------------------------------------------------------------
+4. ARCHIVOS DE SALIDA PRINCIPALES
+--------------------------------------------------------------------
+
+Carpeta resultados_parquet/:
+- resumen_<año>_provisional.parquet: resumen anual (2007–2025).
+- base_historica_2007_2025_provisional.parquet: panel histórico consolidado.
+- base_historica_2007_2025_corregida.parquet, *_limpia.parquet,
+  *_estandarizada.parquet y *_features.parquet: etapas de preparación.
+- matriz_entrenamiento_ml.parquet: datos preparados para modelamiento.
+- proyecciones_matricula_2026.parquet y .csv: proyección por programa.
+- proyecciones_2026_agrupadas.parquet: agregación por carrera e institución.
+- proyecciones_escenarios_2026_2028.parquet: escenarios por programa y año.
+
+Otros resultados en la raíz:
+- Reporte_Ejecutivo_Matricula_2026.xlsx
+- reportes_diagnostico/: informes de calidad por año y globales.
+- graficos_diagnostico/: gráficos de calidad y tablero de proyecciones.
+
+--------------------------------------------------------------------
+5. CERRAR EL PROYECTO
+--------------------------------------------------------------------
+
+1) Guarda el notebook con Ctrl + S.
+2) Detén el kernel desde la barra del cuaderno (Stop/Interrupt).
+3) En la terminal del proyecto ejecuta: deactivate
+4) Cierra VS Code y la terminal.
+
+====================================================================

@@ -1,0 +1,28 @@
+=== INFORME DE DIAGNÓSTICO DE DATOS (2013) ===
+
+--- 1. ESTADO DE CONTEOS DE PROGRAMAS ---
+- Pendiente de revisión: 2432 programas
+- Sin incidencias detectadas: 1700 programas
+- Cero observado: verificar admisión: 956 programas
+
+--- 2. MÉTRICAS GLOBALES DE ADMISIÓN ---
+- Total de programas observados: 5,088
+- Ingresantes identificados totales: 151,955
+- Registros de primer ingreso sin MRUN: 57
+- Registros con ingreso por revisar: 50,300
+
+--- 3. DETECCIÓN DE ANOMALÍAS DE DATO Y FORMATO ---
+- Duraciones fuera de rango (menos de 4 o más de 16 semestres): 124 programas
+
+--- 4. MUESTRA DE PROGRAMAS QUE REQUIEREN REVISIÓN (Top 10) ---
+ codigo_unico                               nomb_inst                                                                     nomb_carrera                      estado_conteo  registros_sin_mrun  registros_ingreso_por_revisar
+ I19S5C98J1V1             UNIVERSIDAD DE LAS AMERICAS                                                                     KINESIOLOGIA              Pendiente de revisión                   0                            100
+ I45S2C33J1V1              UNIVERSIDAD DEL DESARROLLO                                                                       ENFERMERIA              Pendiente de revisión                   0                              9
+I54S32C47J2V1 UNIVERSIDAD TECNOLOGICA DE CHILE INACAP                        INGENIERIA EN ADMINISTRACION DE EMPRESAS MENCION FINANZAS              Pendiente de revisión                   0                            150
+ I71S1C73J1V1        UNIVERSIDAD DE SANTIAGO DE CHILE                                                QUIMICA Y LICENCIATURA EN QUIMICA              Pendiente de revisión                   0                              4
+I84S18C77J2V1                UNIVERSIDAD DE LOS LAGOS                                                             PLANIFICACION SOCIAL Cero observado: verificar admisión                   0                              0
+ I85S3C27J1V1   UNIVERSIDAD TECNOLOGICA METROPOLITANA                                      INGENIERIA EN ADMINISTRACION AGROINDUSTRIAL              Pendiente de revisión                   0                              1
+ I31S2C46J1V1           UNIVERSIDAD AUTONOMA DE CHILE                                                                   FONOAUDIOLOGIA              Pendiente de revisión                   0                              2
+ I45S1C11J2V1              UNIVERSIDAD DEL DESARROLLO INGENIERIA EN EJECUCION EN ADMINISTRACION MENCION MARKETING Y FINANZAS APLICADAS              Pendiente de revisión                   0                              4
+ I19S3C20J2V1             UNIVERSIDAD DE LAS AMERICAS                                                    PEDAGOGIA EN EDUCACION BASICA              Pendiente de revisión                   0                             24
+I70S1C178J1V1                    UNIVERSIDAD DE CHILE                                           SOCIOLOGIA, LICENCIATURA EN SOCIOLOGIA              Pendiente de revisión                   1                              0

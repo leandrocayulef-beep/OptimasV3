@@ -1,0 +1,28 @@
+=== INFORME DE DIAGNÓSTICO DE DATOS (2019) ===
+
+--- 1. ESTADO DE CONTEOS DE PROGRAMAS ---
+- Sin incidencias detectadas: 2256 programas
+- Cero observado: verificar admisión: 1465 programas
+- Pendiente de revisión: 1189 programas
+
+--- 2. MÉTRICAS GLOBALES DE ADMISIÓN ---
+- Total de programas observados: 4,910
+- Ingresantes identificados totales: 151,918
+- Registros de primer ingreso sin MRUN: 278
+- Registros con ingreso por revisar: 8,950
+
+--- 3. DETECCIÓN DE ANOMALÍAS DE DATO Y FORMATO ---
+- Duraciones fuera de rango (menos de 4 o más de 16 semestres): 135 programas
+
+--- 4. MUESTRA DE PROGRAMAS QUE REQUIEREN REVISIÓN (Top 10) ---
+  codigo_unico                                     nomb_inst                                                                                   nomb_carrera                      estado_conteo  registros_sin_mrun  registros_ingreso_por_revisar
+   I87S1C9J1V1                     UNIVERSIDAD DE CONCEPCION                                                           CIENCIAS POLITICAS Y ADMINISTRATIVAS Cero observado: verificar admisión                   0                              0
+   I69S1C5J1V1                   UNIVERSIDAD ALBERTO HURTADO                                                                                     PERIODISMO              Pendiente de revisión                   0                              8
+ I70S1C177J1V1                          UNIVERSIDAD DE CHILE                                                                             QUIMICA Y FARMACIA              Pendiente de revisión                   1                             11
+I16S28C296J2V1                      UNIVERSIDAD LA REPUBLICA PEDAGOGIA EN EDUCACION DIFERENCIAL MENCION TRASTORNOS DE AUDICION Y LENGUAJE - CONTINUIDAD TNS Cero observado: verificar admisión                   0                              0
+  I54S8C68J2V2       UNIVERSIDAD TECNOLOGICA DE CHILE INACAP                           INGENIERIA EN ADMINISTRACION DE EMPRESAS MENCION GESTION DE PERSONAS Cero observado: verificar admisión                   0                              0
+  I76S1C95J1V1                    UNIVERSIDAD DE LA FRONTERA                                                                     INGENIERIA CIVIL AMBIENTAL              Pendiente de revisión                   0                              3
+  I80S1C18J1V2                       UNIVERSIDAD DE TARAPACA                                                                   PROFESOR DE EDUCACION FISICA              Pendiente de revisión                   0                             47
+  I89S1C78J1V1 PONTIFICIA UNIVERSIDAD CATOLICA DE VALPARAISO                        PEDAGOGIA EN BIOLOGIA Y CIENCIAS NATURALES Y/O LICENCIATURA EN BIOLOGIA              Pendiente de revisión                   0                              2
+   I23S2C1J1V1                     UNIVERSIDAD ADOLFO IBAÑEZ                                                                           INGENIERIA COMERCIAL              Pendiente de revisión                   0                            102
+ I86S5C300J1V1      PONTIFICIA UNIVERSIDAD CATOLICA DE CHILE                                                       COLLEGE CIENCIAS SOCIALES (LICENCIATURA)              Pendiente de revisión                   1                              0

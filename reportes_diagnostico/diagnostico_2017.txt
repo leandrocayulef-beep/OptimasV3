@@ -1,0 +1,28 @@
+=== INFORME DE DIAGNÓSTICO DE DATOS (2017) ===
+
+--- 1. ESTADO DE CONTEOS DE PROGRAMAS ---
+- Pendiente de revisión: 2907 programas
+- Sin incidencias detectadas: 1178 programas
+- Cero observado: verificar admisión: 938 programas
+
+--- 2. MÉTRICAS GLOBALES DE ADMISIÓN ---
+- Total de programas observados: 5,023
+- Ingresantes identificados totales: 159,053
+- Registros de primer ingreso sin MRUN: 80
+- Registros con ingreso por revisar: 48,319
+
+--- 3. DETECCIÓN DE ANOMALÍAS DE DATO Y FORMATO ---
+- Duraciones fuera de rango (menos de 4 o más de 16 semestres): 150 programas
+
+--- 4. MUESTRA DE PROGRAMAS QUE REQUIEREN REVISIÓN (Top 10) ---
+  codigo_unico                                nomb_inst                                                                                                                                 nomb_carrera         estado_conteo  registros_sin_mrun  registros_ingreso_por_revisar
+  I31S2C41J1V1            UNIVERSIDAD AUTONOMA DE CHILE                                                                                                                                   ENFERMERIA Pendiente de revisión                   0                             13
+  I71S1C46J1V1         UNIVERSIDAD DE SANTIAGO DE CHILE LICENCIATURA EN LINGÜISTICA APLICADA A LA TRADUCCION MENCION INGLES-JAPONES O INGLES-PORTUGUES / TRADUCTOR INGLES-JAPONES O INGLES-PORTUGUES Pendiente de revisión                   1                              4
+   I87S1C9J1V1                UNIVERSIDAD DE CONCEPCION                                                                                                         CIENCIAS POLITICAS Y ADMINISTRATIVAS Pendiente de revisión                   0                              4
+   I69S1C5J1V1              UNIVERSIDAD ALBERTO HURTADO                                                                                                                                   PERIODISMO Pendiente de revisión                   0                             18
+ I13S6C160J1V1                  UNIVERSIDAD SANTO TOMAS                                                                                                                               FONOAUDIOLOGIA Pendiente de revisión                   0                              7
+ I70S1C177J1V1                     UNIVERSIDAD DE CHILE                                                                                                                           QUIMICA Y FARMACIA Pendiente de revisión                   0                             31
+   I3S1C46J1V1               UNIVERSIDAD DIEGO PORTALES                                                                                                                                   ENFERMERIA Pendiente de revisión                   0                             26
+ I20S1C115J1V1                 UNIVERSIDAD ANDRES BELLO                                                                                                                  INGENIERIA CIVIL INDUSTRIAL Pendiente de revisión                   0                             10
+  I88S2C33J2V2 UNIVERSIDAD TECNICA FEDERICO SANTA MARIA                                                                                          INGENIERIA DE EJECUCION EN MANTENIMIENTO INDUSTRIAL Pendiente de revisión                   0                             22
+I13S12C160J1V1                  UNIVERSIDAD SANTO TOMAS                                                                                                                               FONOAUDIOLOGIA Pendiente de revisión                   0                              1

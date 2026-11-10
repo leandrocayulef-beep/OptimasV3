@@ -1,0 +1,28 @@
+=== INFORME DE DIAGNÓSTICO DE DATOS (2022) ===
+
+--- 1. ESTADO DE CONTEOS DE PROGRAMAS ---
+- Sin incidencias detectadas: 1839 programas
+- Cero observado: verificar admisión: 1707 programas
+- Pendiente de revisión: 1429 programas
+
+--- 2. MÉTRICAS GLOBALES DE ADMISIÓN ---
+- Total de programas observados: 4,975
+- Ingresantes identificados totales: 132,495
+- Registros de primer ingreso sin MRUN: 87
+- Registros con ingreso por revisar: 26,569
+
+--- 3. DETECCIÓN DE ANOMALÍAS DE DATO Y FORMATO ---
+- Duraciones fuera de rango (menos de 4 o más de 16 semestres): 149 programas
+
+--- 4. MUESTRA DE PROGRAMAS QUE REQUIEREN REVISIÓN (Top 10) ---
+ codigo_unico                                             nomb_inst                                                                                                                                 nomb_carrera                      estado_conteo  registros_sin_mrun  registros_ingreso_por_revisar
+  I45S2C4J1V1                            UNIVERSIDAD DEL DESARROLLO                                                                                                                                      DERECHO              Pendiente de revisión                   0                             18
+ I31S2C41J1V1                         UNIVERSIDAD AUTONOMA DE CHILE                                                                                                                                   ENFERMERIA              Pendiente de revisión                   0                              5
+ I71S1C46J1V1                      UNIVERSIDAD DE SANTIAGO DE CHILE LICENCIATURA EN LINGÜISTICA APLICADA A LA TRADUCCION MENCION INGLES-JAPONES O INGLES-PORTUGUES / TRADUCTOR INGLES-JAPONES O INGLES-PORTUGUES              Pendiente de revisión                   0                              3
+ I39S6C78J4V1                             UNIVERSIDAD SAN SEBASTIAN                                                                                                                             CONTADOR AUDITOR Cero observado: verificar admisión                   0                              0
+I13S6C160J1V1                               UNIVERSIDAD SANTO TOMAS                                                                                                                               FONOAUDIOLOGIA Cero observado: verificar admisión                   0                              0
+ I71S1C68J1V1                      UNIVERSIDAD DE SANTIAGO DE CHILE                                                                                                                   OBSTETRICIA Y PUERICULTURA              Pendiente de revisión                   0                              3
+  I3S1C46J1V1                            UNIVERSIDAD DIEGO PORTALES                                                                                                                                   ENFERMERIA              Pendiente de revisión                   0                             53
+ I45S4C17J1V2                            UNIVERSIDAD DEL DESARROLLO                                                                                                                                   PSICOLOGIA              Pendiente de revisión                   0                             21
+ I82S1C12J1V1 UNIVERSIDAD METROPOLITANA DE CIENCIAS DE LA EDUCACION                                         LICENCIATURA EN EDUCACION Y PEDAGOGIA EN EDUCACION DIFERENCIAL ESPECIALIDAD PROBLEMAS DE APRENDIZAJE Cero observado: verificar admisión                   0                              0
+ I88S1C15J2V1              UNIVERSIDAD TECNICA FEDERICO SANTA MARIA                                                                                                                  INGENIERIA CIVIL INDUSTRIAL Cero observado: verificar admisión                   0                              0

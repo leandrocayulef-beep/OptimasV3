@@ -1,0 +1,28 @@
+=== INFORME DE DIAGNÓSTICO DE DATOS (2012) ===
+
+--- 1. ESTADO DE CONTEOS DE PROGRAMAS ---
+- Sin incidencias detectadas: 2668 programas
+- Pendiente de revisión: 1312 programas
+- Cero observado: verificar admisión: 1017 programas
+
+--- 2. MÉTRICAS GLOBALES DE ADMISIÓN ---
+- Total de programas observados: 4,997
+- Ingresantes identificados totales: 157,718
+- Registros de primer ingreso sin MRUN: 86
+- Registros con ingreso por revisar: 24,160
+
+--- 3. DETECCIÓN DE ANOMALÍAS DE DATO Y FORMATO ---
+- Duraciones fuera de rango (menos de 4 o más de 16 semestres): 116 programas
+
+--- 4. MUESTRA DE PROGRAMAS QUE REQUIEREN REVISIÓN (Top 10) ---
+  codigo_unico                                          nomb_inst                                                                     nomb_carrera                      estado_conteo  registros_sin_mrun  registros_ingreso_por_revisar
+  I45S2C33J1V1                         UNIVERSIDAD DEL DESARROLLO                                                                       ENFERMERIA              Pendiente de revisión                   0                             10
+ I75S1C119J2V1                            UNIVERSIDAD DEL BIO-BIO                                          TECNICO UNIVERSITARIO EN ADMINISTRACION              Pendiente de revisión                   0                             48
+  I76S1C77J1V1                         UNIVERSIDAD DE LA FRONTERA                             PEDAGOGIA EN EDUCACION FISICA, DEPORTES Y RECREACION              Pendiente de revisión                   0                              3
+ I84S18C77J2V1                           UNIVERSIDAD DE LOS LAGOS                                                             PLANIFICACION SOCIAL Cero observado: verificar admisión                   0                              0
+  I29S1C26J1V1                                  UNIVERSIDAD UCINF                                                                   TRABAJO SOCIAL              Pendiente de revisión                   0                             48
+  I7S1C363J2V1                            UNIVERSIDAD BOLIVARIANA                                                           ADMINISTRACION PUBLICA              Pendiente de revisión                   0                              3
+  I45S1C11J2V1                         UNIVERSIDAD DEL DESARROLLO INGENIERIA EN EJECUCION EN ADMINISTRACION MENCION MARKETING Y FINANZAS APLICADAS              Pendiente de revisión                   0                             13
+I54S33C113J1V1            UNIVERSIDAD TECNOLOGICA DE CHILE INACAP                                                                   PSICOPEDAGOGIA              Pendiente de revisión                   0                             57
+  I42S1C11J1V1 UNIVERSIDAD CATOLICA CARDENAL RAUL SILVA HENRIQUEZ                                                             INGENIERIA COMERCIAL              Pendiente de revisión                   0                             22
+ I54S14C47J1V1            UNIVERSIDAD TECNOLOGICA DE CHILE INACAP                        INGENIERIA EN ADMINISTRACION DE EMPRESAS MENCION FINANZAS              Pendiente de revisión                   0                             33

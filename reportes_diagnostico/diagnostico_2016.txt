@@ -1,0 +1,28 @@
+=== INFORME DE DIAGNÓSTICO DE DATOS (2016) ===
+
+--- 1. ESTADO DE CONTEOS DE PROGRAMAS ---
+- Pendiente de revisión: 2976 programas
+- Sin incidencias detectadas: 1125 programas
+- Cero observado: verificar admisión: 941 programas
+
+--- 2. MÉTRICAS GLOBALES DE ADMISIÓN ---
+- Total de programas observados: 5,042
+- Ingresantes identificados totales: 156,401
+- Registros de primer ingreso sin MRUN: 79
+- Registros con ingreso por revisar: 47,420
+
+--- 3. DETECCIÓN DE ANOMALÍAS DE DATO Y FORMATO ---
+- Duraciones fuera de rango (menos de 4 o más de 16 semestres): 153 programas
+
+--- 4. MUESTRA DE PROGRAMAS QUE REQUIEREN REVISIÓN (Top 10) ---
+ codigo_unico                                              nomb_inst                                            nomb_carrera         estado_conteo  registros_sin_mrun  registros_ingreso_por_revisar
+ I26S1C32J1V1 UNIVERSIDAD DE ARTES, CIENCIAS Y COMUNICACION - UNIACC    TRADUCCION E INTERPRETARIADO BILINGÜE INGLES-ESPAÑOL Pendiente de revisión                   0                              1
+ I45S2C33J1V1                             UNIVERSIDAD DEL DESARROLLO                                              ENFERMERIA Pendiente de revisión                   0                              6
+  I87S1C9J1V1                              UNIVERSIDAD DE CONCEPCION                    CIENCIAS POLITICAS Y ADMINISTRATIVAS Pendiente de revisión                   0                              3
+I13S6C160J1V1                                UNIVERSIDAD SANTO TOMAS                                          FONOAUDIOLOGIA Pendiente de revisión                   0                              9
+I70S1C177J1V1                                   UNIVERSIDAD DE CHILE                                      QUIMICA Y FARMACIA Pendiente de revisión                   0                             28
+  I70S1C6J1V1                                   UNIVERSIDAD DE CHILE                                              BIOQUIMICA Pendiente de revisión                   0                              7
+I20S1C115J1V1                               UNIVERSIDAD ANDRES BELLO                             INGENIERIA CIVIL INDUSTRIAL Pendiente de revisión                   0                             14
+ I19S1C36J2V1                            UNIVERSIDAD DE LAS AMERICAS TECNICO DE NIVEL SUPERIOR EN ADMINISTRACION DE EMPRESAS Pendiente de revisión                   0                              2
+  I11S1C6J1V1            UNIVERSIDAD ACADEMIA DE HUMANISMO CRISTIANO                                              PERIODISMO Pendiente de revisión                   0                              1
+ I88S2C33J2V1               UNIVERSIDAD TECNICA FEDERICO SANTA MARIA     INGENIERIA DE EJECUCION EN MANTENIMIENTO INDUSTRIAL Pendiente de revisión                   0                             16
