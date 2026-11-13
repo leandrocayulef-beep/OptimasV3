@@ -1,0 +1,567 @@
+INFORME COMPLETO DE RESULTADOS Y HALLAZGOS
+Proyecto: análisis histórico y proyección de matrícula de primer ingreso
+Cobertura: educación superior universitaria, pregrado, Chile, 2007–2025
+Proyección principal: 2026 | Escenarios de sensibilidad: 2026–2028
+Fecha de elaboración: 13 de noviembre de 2026
+Carpeta del proyecto: /home/leandro/Escritorio/Carreras
+
+======================================================================
+1. PROPÓSITO, ALCANCE Y ESTADO DE LA EVIDENCIA
+======================================================================
+
+Este informe reúne los resultados y hallazgos documentados en el notebook
+OptimasCarreras(vscode_V2).ipynb, su explicación bloque a bloque, los
+diagnósticos TXT guardados, los archivos de salida encontrados, el libro
+ejecutivo y la revisión del script fase_final_limpieza_kpis.py. La finalidad
+es dejar una lectura trazable del pipeline, de sus resultados cuantitativos,
+de las decisiones metodológicas y de las limitaciones que deben acompañar
+cualquier uso de las cifras.
+
+El análisis procesa registros de matrícula por persona y año, restringe el
+universo a universidades y programas de pregrado, y los resume por programa
+y período. La clave de identificación usada para el panel es
+(cat_periodo, codigo_unico). El objeto medido central es el conteo de
+estudiantes cuyo año original de ingreso a la carrera coincide con el año
+del registro, sujeto a reglas de identificación y revisión.
+
+La evidencia guardada corresponde a una ejecución anterior documentada en
+el notebook y en los archivos de salida. En la explicación del notebook se
+indica que esa revisión reparó y ejecutó la consolidación y las etapas
+posteriores usando los Parquet anuales ya existentes, pero no reprocesó los
+CSV completos desde cero en esa pasada. Este informe no vuelve a ejecutar el
+pipeline ni recalcula las métricas; presenta los resultados existentes y
+marca las diferencias entre etapas y definiciones.
+
+Archivos de referencia principales:
+- OptimasCarreras(vscode_V2).ipynb: flujo principal, 24 bloques ejecutables.
+- Explicacion_bloque_a_bloque_OptimasCarreras_V2.txt: evidencia detallada
+  de resultados por bloque y cambios aplicados al notebook.
+- gu_a_de_inicio_y_cierre_del_proyecto.txt: resumen de resultados recientes,
+  cifras de modelos, proyección y escenarios.
+- reportes_diagnostico/diagnostico_historico_global_2007_2025.txt y los
+  diagnósticos anuales 2007–2025: cobertura y calidad de datos.
+- Reporte_Ejecutivo_Matricula_2026.xlsx y archivos bajo resultados_parquet/:
+  productos de proyección registrados.
+- fase_final_limpieza_kpis.py: etapa posterior de saneamiento y KPIs cuya
+  implementación está disponible, pero cuyos productos no se observaron en
+  la carpeta de salida al revisar el proyecto.
+
+======================================================================
+2. RESUMEN EJECUTIVO DE RESULTADOS
+======================================================================
+
+- Se dispone de 19 archivos CSV anuales, desde 2007 hasta 2025. Su tamaño
+  conjunto ronda 13,6 GB decimales (aprox. 12,7 GiB), por lo que el flujo
+  transforma los registros a resúmenes Parquet de menor tamaño.
+- El panel provisional consolidado tiene 92.396 filas programa-año y
+  14.978 códigos de programa distintos. La comprobación de unicidad de
+  (cat_periodo, codigo_unico) no detectó duplicados.
+- Se observan 67 instituciones. Cada código de programa aparece, en
+  promedio, durante 6,2 de los 19 años. 960 códigos aparecen en los 19 años
+  (6,4%); 1.862 comienzan en 2020 o después; 8.342 tienen como último año
+  observado uno anterior a 2020.
+- La calidad del conteo de primer ingreso no es homogénea entre años. Los
+  registros pendientes de revisión, los ceros observados y los identificados
+  con MRUN son categorías distintas y no deben sumarse o compararse como si
+  fueran una única medida definitiva.
+- En la evaluación retrospectiva 2023–2025, el benchmark Naive (último valor
+  disponible) superó a LightGBM Delta y al ensamble adaptativo en MAE y RMSE,
+  y obtuvo el R² más alto entre los resultados principales documentados.
+- La proyección principal 2026 suma 197.257 ingresantes para 4.259 programas
+  activos en 2025, frente a una base comparable de 196.312 en 2025: aumento
+  estimado de 945 personas, equivalente a +0,48%.
+- La proyección agregada tiene 2.116 combinaciones carrera-institución y
+  322 carreras agrupadas.
+- Los escenarios 2026–2028 muestran una amplitud muy grande. Son ejercicios
+  de sensibilidad a volatilidad histórica, no pronósticos puntuales con la
+  misma interpretación que la proyección Base.
+- Se detectan dos productos metodológicos distintos: el pipeline principal
+  de proyección ya tiene salidas guardadas; el script de saneamiento final
+  propone una base definitiva y KPIs, pero no hay evidencia de que esta fase
+  final se haya ejecutado en la salida revisada.
+
+======================================================================
+3. DESCRIPCIÓN DEL PROCESAMIENTO
+======================================================================
+
+3.1. Ingesta, filtro y agregación anual
+
+La función procesar_anio lee cada CSV con separador punto y coma y conserva
+los campos inicialmente como texto. Normaliza nombres de columna y espacios,
+exige campos clave, filtra tipo de institución “Universidades” y nivel
+“Pregrado”, y reemplaza el período por el año asociado al archivo.
+
+Para cada programa-año, compara anio_ing_carr_ori con el año del archivo.
+Cuenta los registros de primer ingreso, los MRUN distintos identificados,
+los registros de primer ingreso sin MRUN y las filas cuyo año de ingreso no
+puede aceptarse sin revisión (nulos, códigos especiales, años futuros,
+valores no positivos o no enteros). También marca conflictos entre
+atributos de un mismo programa-año y diagnostica formatos numéricos,
+duraciones y aranceles. Cada resumen se escribe en Parquet.
+
+Estados de conteo del flujo:
+- “Sin incidencias detectadas”: no hay filas pendientes ni primer ingreso
+  sin MRUN; el conteo provisional puede conservarse.
+- “Pendiente de revisión”: hay evidencia que requiere auditoría; el conteo
+  provisional queda nulo en la construcción anual inicial.
+- “Cero observado: verificar admisión”: no se observaron registros cuyo año
+  de ingreso coincide con el período. Esto no demuestra por sí solo que la
+  carrera no haya tenido admisión.
+
+3.2. Consolidación y preparación longitudinal
+
+Los 19 resúmenes se concatenan en una base provisional. Luego se generan
+diagnósticos globales, gráficos, una regla de recuperación de conteos, una
+clasificación de continuidad del programa, normalización de nombres y
+variables temporales (rezagos, promedio móvil, variación interanual y años
+en oferta). La matriz de modelamiento excluye el primer año observable de
+cada programa cuando no cuenta con rezago previo.
+
+3.3. Evaluación y pronóstico
+
+La separación documentada usa datos hasta 2022 para entrenamiento y años
+2023–2025 para evaluación. Se comparan un benchmark que repite el último
+valor conocido, modelos de regresión (Random Forest y XGBoost), LightGBM
+que predice cambios interanuales (Delta) y un ensamble que elige entre
+LightGBM y Naive de acuerdo con la volatilidad histórica del programa.
+Después se proyecta 2026 para los programas activos en 2025, se homologan
+carreras a partir de carreras_agrupadas.xlsx y se agregan resultados por
+carrera e institución.
+
+======================================================================
+4. COBERTURA HISTÓRICA Y CALIDAD: RESULTADOS ANUALES
+======================================================================
+
+La tabla reproduce el diagnóstico global guardado. “Ingresantes utilizables”
+es el nombre de la columna del informe global para la suma anual de los
+conteos aceptados en esa etapa; no equivale a todas las filas individuales
+identificadas con MRUN que aparecen en los diagnósticos anuales. Los estados
+de programa corresponden a la clasificación anual original.
+
+Año  Programas  Ingresantes utilizables  Sin incidencias  Pendientes  Cero observado
+2007     3.996                 115.521            2.706         679             611
+2008     4.270                  99.073            2.475       1.119             676
+2009     4.830                 104.816            2.601       1.144           1.085
+2010     5.030                 108.392            2.655       1.326           1.049
+2011     5.059                 100.700            2.539       1.611             909
+2012     4.997                 106.506            2.668       1.312           1.017
+2013     5.088                  68.107            1.700       2.432             956
+2014     5.062                  63.122            1.514       2.664             884
+2015     5.080                  64.019            1.587       2.556             937
+2016     5.042                  43.777            1.125       2.976             941
+2017     5.023                  48.908            1.178       2.907             938
+2018     5.055                 107.458            2.417       1.239           1.399
+2019     4.910                  96.894            2.256       1.189           1.465
+2020     4.877                  92.122            2.129       1.121           1.627
+2021     4.936                  94.469            2.095       1.116           1.725
+2022     4.975                  79.670            1.839       1.429           1.707
+2023     4.921                  74.159            1.592       1.786           1.543
+2024     4.673                  79.232            1.621       1.738           1.314
+2025     4.572                  81.622            1.610       1.788           1.174
+
+Hallazgos de la serie:
+
+1) El número de programas observados crece de 3.996 en 2007 a un máximo de
+   5.088 en 2013; se mantiene alrededor de 5.000 hasta 2023 y baja a 4.673
+   en 2024 y 4.572 en 2025. El conteo se refiere a códigos programa-año
+   después del filtro del proyecto, no necesariamente a carreras agrupadas.
+
+2) La proporción anual de programas pendientes se eleva marcadamente entre
+   2013 y 2017. El máximo del panel se alcanza en 2016: 2.976 de 5.042
+   programas, cerca de 59,0%. En 2017 son 2.907 de 5.023 (57,9%). El número
+   de programas “sin incidencias” en 2016 es 1.125 (22,3%). Esta variación
+   afecta la comparabilidad de los niveles anuales.
+
+3) Los ingresantes utilizables descienden de 106.506 en 2012 a 43.777 en
+   2016, y luego vuelven a 107.458 en 2018. El descenso y rebote coinciden
+   con cambios notorios en la composición de estados de conteo y pueden
+   reflejar problemas de cobertura/clasificación además de cambios reales
+   de matrícula. No conviene interpretar esa trayectoria como evolución
+   demográfica pura sin una reconciliación de la calidad de los años.
+
+4) En 2025 el diagnóstico anual informa 4.572 programas, 1.610 sin
+   incidencias (35,2%), 1.788 pendientes (39,1%) y 1.174 con cero observado
+   que debe verificarse (25,7%). Los registros individuales reportan
+   159.063 ingresantes identificados, 103 registros de primer ingreso sin
+   MRUN y 52.675 registros con año de ingreso por revisar. El último número
+   es de registros individuales pendientes, no de estudiantes únicos.
+
+5) El diagnóstico anual de 2007 informa 3.996 programas; 2.706 sin
+   incidencias, 679 pendientes y 611 con cero observado. Registra 131.281
+   ingresantes identificados, 52 primeros ingresos sin MRUN y 17.862 filas
+   de ingreso por revisar. La diferencia entre 131.281 identificados en el
+   informe anual y 115.521 “utilizables” en el global se debe a filtros o
+   definiciones de los agregados distintos; no se deben intercambiar ambos
+   valores como si fueran una misma serie.
+
+6) Los diagnósticos señalan 834 programa-año con arancel igual a cero y
+   2.398 duraciones atípicas (menores a 4 o mayores a 16 semestres) en el
+   panel histórico. Estos indicadores son banderas de calidad, no pruebas de
+   error: algunos casos pueden ser legítimos y requieren contexto.
+
+7) Se contabilizan 67 instituciones y 14.978 códigos únicos de programa.
+   El promedio de presencia es 6,2 años. Solo 960 códigos (6,4%) están
+   presentes durante los 19 años completos. 1.862 aparecen por primera vez
+   desde 2020; 8.342 no se observan desde antes de 2020. El código único
+   puede reflejar cambios de institución, sede, carrera o versión según la
+   estructura de origen; la historia de códigos no es automáticamente la
+   historia de una carrera homologada.
+
+======================================================================
+5. REGLA DE RECUPERACIÓN Y CIFRAS QUE NO SON DIRECTAMENTE COMPARABLES
+======================================================================
+
+El bloque de recuperación guarda una base corregida de 92.396 filas y
+documenta los siguientes totales anuales “corregidos” para 2013–2025:
+
+Año   Total corregido según regla del bloque
+2013  201.292
+2014  197.783
+2015  197.791
+2016  202.962
+2017  205.711
+2018  168.335
+2019  160.142
+2020  150.053
+2021  152.236
+2022  158.782
+2023  187.701
+2024  194.027
+2025  211.659
+
+La regla secundaria descrita recupera ciertos conteos pendientes desde 2013
+cuando no faltan identificadores MRUN. Estos totales no coinciden con la
+serie “ingresantes utilizables” del diagnóstico global ni con la base 2025
+de 196.312 usada como comparación de la proyección. Son cifras de etapas y
+reglas diferentes. Antes de presentar una serie única de matrícula como
+oficial, se debe documentar y reconciliar exactamente qué variable usa cada
+etapa y por qué algunos estados pendientes entran o quedan fuera.
+
+La explicación del proyecto consigna el total corregido de 2025 como
+211.659; la proyección usa 196.312 como matrícula real/base para los
+programas proyectados. La brecha es 15.347. El material disponible no
+expone una reconciliación fila por fila de esa diferencia. Por tanto, este
+informe conserva ambos valores con su etiqueta de origen, en vez de
+presentarlos como equivalentes.
+
+======================================================================
+6. PREPARACIÓN DEL PANEL Y VARIABLES DEL MODELO
+======================================================================
+
+- La consolidación reúne 92.396 observaciones programa-año de 2007–2025 y
+  supera la prueba de unicidad de (cat_periodo, codigo_unico).
+- La etapa de clasificación longitudinal identifica 14.978 códigos. 960
+  están en los 19 años (6,4%); 1.862 comienzan desde 2020; 8.342 terminan
+  antes de 2020. La permanencia media reportada es 6,2 años.
+- La normalización mantiene 67 nombres institucionales distintos y reduce
+  los nombres de carrera distintos de 3.756 a 3.749. Por tanto, tuvo un
+  efecto pequeño en el número de etiquetas, aunque puede resolver variantes
+  de escritura concretas.
+- Las variables temporales producen 92.396 objetivos disponibles, 77.418
+  filas con rezago 1 y promedio móvil de tres años, y 67.492 con rezago 2.
+- La matriz final de entrenamiento tiene 77.418 observaciones desde 2008
+  hasta 2025, 9.926 programas y 66 instituciones. La diferencia respecto
+  de los 14.978 códigos históricos se explica por la exigencia de historia
+  previa y los filtros de disponibilidad aplicados a la matriz.
+
+======================================================================
+7. EVALUACIÓN RETROSPECTIVA DE MODELOS
+======================================================================
+
+Partición documentada: 64.087 filas de entrenamiento (hasta 2022) y 13.331
+filas de evaluación (2023–2025). Métricas registradas:
+
+Modelo                         MAE       RMSE       R²
+Naive: último valor observado  10,31     29,31      0,8567
+Random Forest                  12,40     46,45      0,6402
+XGBoost                        12,28     44,63      0,6677
+LightGBM Delta                 11,79     31,20      0,8377
+Ensamble adaptativo            11,26     29,80      0,8519
+
+Lectura de las métricas:
+- MAE: error absoluto medio en unidades de ingresantes por observación
+  evaluada; menor es mejor.
+- RMSE: penaliza más los errores grandes; menor es mejor.
+- R²: proporción de variación explicada respecto de una referencia media;
+  más alto es mejor en esta comparación.
+
+El benchmark Naive obtiene los mejores MAE y RMSE de los cinco resultados,
+y el R² más alto (0,8567 frente a 0,8519 del ensamble). El ensamble es el
+mejor de los modelos no Naive por MAE/RMSE, pero no mejora la referencia
+simple en esta prueba. LightGBM Delta tampoco supera al benchmark. Random
+Forest y XGBoost presentan errores mayores, especialmente en RMSE. La
+conclusión respaldada por la validación es que, con la partición y métricas
+implementadas, la persistencia del último valor fue la opción más precisa.
+
+La evaluación no garantiza el mismo comportamiento fuera de muestra. No se
+dispone aquí de intervalos de confianza, análisis de error segmentado por
+tamaño de programa, institución o área, ni comparación con una validación
+temporal de origen móvil. Tampoco debe interpretarse el R² como porcentaje
+de predicciones “correctas”.
+
+======================================================================
+8. PROYECCIÓN PRINCIPAL DE MATRÍCULA 2026
+======================================================================
+
+Programas activos en 2025 proyectados: 4.259
+Base de matrícula utilizada para 2025: 196.312
+Proyección agregada para 2026: 197.257
+Diferencia absoluta: +945 ingresantes
+Variación porcentual: +0,48%
+
+La proyección se genera para programas activos en 2025, con reentrenamiento
+del LightGBM y actualización de variables de rezago y promedio móvil. El
+ensamble conserva Naive para programas con volatilidad histórica baja y
+elige LightGBM para aquellos sobre el umbral establecido de 5 estudiantes.
+Aunque Naive fue el mejor modelo global en la prueba 2023–2025, el sistema
+de producción descrito usa la regla adaptativa para construir la proyección.
+Esto debe considerarse al interpretar el total de 2026.
+
+Homologación y agregación:
+- El archivo carreras_agrupadas.xlsx aporta 1.107 equivalencias registradas
+  en su hoja Detalle.
+- La aplicación se hizo idempotente en el notebook: conserva el nombre
+  original de carrera para permitir repetir la homologación sin degradarla.
+- La tabla agregada contiene 2.116 combinaciones carrera-institución y
+  322 carreras agrupadas.
+- La suma agregada coincide con 196.312 en 2025 y 197.257 en 2026,
+  equivalente a +0,48%.
+
+La agregación facilita la lectura institucional, pero puede ocultar
+variaciones dentro de una carrera agrupada: programas, sedes y versiones
+distintas pueden evolucionar en direcciones opuestas. El total es una suma
+de predicciones, no una observación de matrícula futura.
+
+======================================================================
+9. ESCENARIOS DE SENSIBILIDAD 2026–2028
+======================================================================
+
+El notebook construye tres escenarios por programa para cuatro años
+(2025–2028): Base, Optimista y Pesimista. La base de 2026 se mantiene en
+2027–2028. Los escenarios optimista y pesimista modifican esa base con
+desviaciones históricas individuales acumulativas, usando 1,5 desviaciones
+estándar; el pesimista aplica piso cero. La descripción advierte que la
+amplitud resulta grande.
+
+Año    Base      Optimista   Pesimista
+2025   196.312   196.312     196.312
+2026   197.257   302.328     133.307
+2027   197.257   407.466      92.400
+2028   197.257   512.532      66.808
+
+El archivo de escenarios contiene 51.108 filas (4.259 programas × 3
+escenarios × 4 años). Entre Base y Optimista hay una diferencia de 105.071
+en 2026, 210.209 en 2027 y 315.275 en 2028. La brecha Optimista–Pesimista
+en 2028 alcanza 445.724. La acumulación amplifica rápidamente la
+volatilidad histórica y produce niveles extremos frente a la variación
+central de +0,48% estimada para 2026.
+
+Estos escenarios describen sensibilidad al supuesto aplicado; no son tres
+modelos independientes calibrados como intervalos probabilísticos. No se
+han documentado probabilidades de ocurrencia ni cobertura histórica de los
+rangos. Para decisiones presupuestarias o planificación, la Base debe
+presentarse por separado y los extremos como pruebas de sensibilidad.
+
+Consultas estratégicas guardadas en la explicación:
+- Entre las mayores caídas netas por institución aparecen Universidad de
+  Aconcagua (-209), Universidad del Bío-Bío (-191) y Universidad Técnica
+  Federico Santa María (-190), según la consulta ejecutada.
+- Entre las mayores brechas de escenarios por carrera en 2028 aparecen
+  Ingeniería Comercial (27.986) y Psicología (24.570).
+- La suma total de escenarios obtenida por consulta coincide con los
+  resultados del bloque de escenarios.
+
+======================================================================
+10. PRODUCTOS GENERADOS Y DISPONIBLES
+======================================================================
+
+En resultados_parquet/ se encontraron:
+- 19 archivos resumen_<año>_provisional.parquet (2007–2025).
+- base_historica_2007_2025_provisional.parquet.
+- base_historica_2007_2025_corregida.parquet.
+- base_historica_2007_2025_limpia.parquet.
+- base_historica_2007_2025_estandarizada.parquet.
+- base_historica_2007_2025_features.parquet.
+- matriz_entrenamiento_ml.parquet.
+- proyecciones_matricula_2026.parquet y proyecciones_matricula_2026.csv.
+- proyecciones_2026_agrupadas.parquet.
+- proyecciones_escenarios_2026_2028.parquet.
+
+En la raíz y carpetas auxiliares se encontraron:
+- Reporte_Ejecutivo_Matricula_2026.xlsx: se documentan 7 indicadores,
+  2.116 filas de proyección y 12 filas de escenarios (3 escenarios × 4 años).
+- reportes_diagnostico/: informes anuales 2007–2025 y diagnóstico global.
+- graficos_diagnostico/tablero_diagnostico_longitudinal.png.
+- graficos_diagnostico/tablero_proyecciones_2026.png.
+- Notebook V1 y V2, script Python, guía de ejecución, explicación por
+  bloques, dependencias y matriz de homologación.
+
+En la salida revisada no se encontraron:
+- base_historica_2007_2025_definitiva.parquet.
+- diccionario_base_definitiva.json.
+- tablero_tendencias_2007_2025.png generado por el script final.
+- ipc_anual.csv.
+
+Por ello, no se atribuyen resultados de saneamiento definitivo ni KPIs de
+esa fase. El script fase_final_limpieza_kpis.py implementa saneamiento de
+conteos, imputación de duraciones y aranceles, armonización de programas,
+exportación de un diccionario, tres consultas KPI y un tablero; esos
+resultados son productos potenciales del código, no resultados observados
+en la evidencia actual. Sin ipc_anual.csv, el arancel real queda nulo; el
+script conserva campos nominales definitivos y marcas de imputación.
+
+======================================================================
+11. CAMBIOS TÉCNICOS DOCUMENTADOS EN EL NOTEBOOK
+======================================================================
+
+La revisión previa del notebook registró estos ajustes de robustez:
+- Comprobación temprana de pyarrow para explicar dependencia de Parquet.
+- El procesamiento masivo se detiene si falta la carpeta o no hay CSV, y
+  lista archivos fallidos para evitar continuar con una base parcial.
+- La consolidación detiene el flujo con un mensaje claro si faltan
+  resúmenes anuales.
+- La variación global protege el caso de matrícula real 2025 igual a cero.
+- La homologación conserva nombres originales y puede repetirse sin
+  sustituir el valor fuente por la etiqueta ya agrupada.
+- Se limpiaron salidas antiguas del notebook y se verificaron el JSON y la
+  compilación de celdas no vacías, según la explicación guardada.
+
+La revisión documenta que pyarrow 26.0.1 se instaló en el entorno virtual.
+La ejecución de los CSV originales completos no se repitió en esa revisión;
+se usaron los 19 resúmenes Parquet disponibles para validar consolidación y
+etapas posteriores.
+
+======================================================================
+12. HALLAZGOS, RIESGOS DE INTERPRETACIÓN Y LÍMITES
+======================================================================
+
+1) Calidad desigual de conteos. Entre 2013 y 2017 la fracción de programas
+   pendientes es muy alta. En 2025, 39,1% de programas queda pendiente y
+   25,7% figura con cero observado que requiere verificación. La evolución
+   temporal de cualquier suma es sensible a qué estados se incluyen.
+
+2) No existe una única cifra de matrícula sin definir la regla. Hay por lo
+   menos cuatro magnitudes nombradas: registros individuales identificados
+   con MRUN, ingresantes utilizables en el diagnóstico global, totales
+   corregidos por la regla secundaria y la base real de 2025 utilizada en
+   proyección. 2025 presenta 159.063 identificados en informe anual,
+   81.622 utilizables en el global, 211.659 corregidos según bloque 9 y
+   196.312 como base para la proyección. Son salidas no reconciliadas y no
+   deben tratarse como intercambiables.
+
+3) Recuperación agregada no equivale a verificación de trayectoria personal.
+   El resumen programa-año guarda agregados y no conserva la secuencia
+   individual necesaria para comprobar continuidad MRUN en esta fase. La
+   explicación del script final reconoce esta limitación. Antes de llamar
+   “definitivo” a un conteo recuperado, debe existir una regla reproducible
+   con evidencia individual o una justificación explícita de la excepción.
+
+4) Ceros observados son casos a investigar. La ausencia de registros que
+   coinciden con el año de primer ingreso puede significar cero admisión,
+   cambio de código, datos incompletos o un caso especial. La etiqueta del
+   pipeline correctamente los conserva como verificación requerida.
+
+5) Años con rupturas de conteo. Los mínimos de 2016–2017 y el rebote de 2018
+   coinciden con fuertes cambios en pendientes/sin incidencias. La serie
+   anual bruta no debe utilizarse para atribuir causas externas hasta
+   resolver comparabilidad y cobertura.
+
+6) Imputación altera significado. La fase final planea imputar duraciones
+   inválidas y aranceles ausentes/cero usando medianas por grupo y respaldos.
+   Esas variables deben acompañarse de indicadores de imputación; de lo
+   contrario, un valor observado y uno imputado serían indistinguibles.
+   La imputación no constituye evidencia del valor real individual.
+
+7) Arancel real necesita IPC. El valor deflactado solo puede calcularse si
+   se entrega una serie anual IPC con base consistente. No se encontró ese
+   archivo y no se observó salida ejecutada de la etapa final.
+
+8) La homologación reduce categorías de carrera solo modestamente en la
+   normalización simple (3.756 a 3.749); la equivalencia con la matriz
+   agrupada es un paso separado. Conviene conservar nombre original, grupo,
+   área y versión de la regla para auditoría.
+
+9) El benchmark supera a modelos complejos en la evaluación informada. Esto
+   recomienda que futuras proyecciones comparen explícitamente contra Naive
+   y expliquen por qué la regla de producción se desvía de él, por ejemplo,
+   con métricas por segmento y validación temporal adicional.
+
+10) Escenarios extremos dependen de volatilidad histórica y acumulación.
+    No deben comunicarse como pronósticos igualmente probables ni como
+    intervalos de confianza. La amplitud de 2028 (445.724 entre optimista y
+    pesimista) es una señal de sensibilidad elevada del mecanismo.
+
+11) La población modelada son programas activos observados en 2025. No se
+    proyecta automáticamente apertura de programas nuevos, reactivación de
+    códigos discontinuados ni cambios futuros de cobertura institucional.
+
+12) Las métricas son agregadas por observación programa-año y están
+    dominadas potencialmente por la distribución de tamaños. Se recomienda
+    complementar con métricas ponderadas y por bandas de matrícula, área,
+    institución y estado de programa antes de usar la proyección para
+    decisiones de alto impacto.
+
+======================================================================
+13. CONCLUSIONES
+======================================================================
+
+El proyecto cuenta con una cadena de trabajo amplia y trazable: ingestión
+anual de datos individuales, auditorías de conteo, consolidación de panel,
+preparación de variables temporales, comparación de modelos, proyección,
+homologación, agregación, escenarios y reporte ejecutivo. Los archivos
+guardados permiten reproducir la lectura principal de la proyección 2026 y
+examinar diagnósticos de cobertura por año.
+
+El resultado central registrado es una proyección de 197.257 ingresantes en
+2026 para programas activos en 2025, un +0,48% respecto de la base
+comparable de 196.312 usada por el notebook. La evaluación retrospectiva
+disponible favorece el benchmark Naive frente a LightGBM Delta, el ensamble,
+Random Forest y XGBoost en las métricas principales reportadas.
+
+La principal cautela sustantiva es la consistencia de la medición: los
+conteos identificados, utilizables, recuperados y usados como base no
+coinciden, especialmente en 2025. La tasa de pendientes es alta en ciertos
+períodos y los escenarios extremos se amplían con rapidez. Una comunicación
+responsable debe mantener la definición de cada cifra junto a su valor y
+presentar los escenarios como sensibilidad.
+
+El código de saneamiento final amplía el proyecto con una ruta posible para
+crear una base definitiva, KPIs y tablero de tendencias. Como sus productos
+no están presentes en la salida revisada, esos resultados quedan pendientes
+de ejecución y validación; no forman parte de las cifras finales de este
+informe.
+
+======================================================================
+14. GLOSARIO BREVE
+======================================================================
+
+Programa-año: observación de un programa identificado por codigo_unico en
+un período cat_periodo.
+
+MRUN: identificador usado en la fuente para distinguir estudiantes; el
+informe cuenta identificadores distintos para identificar primer ingreso.
+
+Ingresantes identificados: MRUN distintos entre los registros cuyo año
+original de ingreso coincide con el año procesado.
+
+Ingresantes utilizables: agregación que aparece con ese nombre en el
+diagnóstico global. Su regla efectiva debe leerse en el bloque que la
+produce; no es sinónimo automático de otras sumas.
+
+Ingresantes corregidos: conteo generado por la regla secundaria de
+recuperación del notebook. No implica validación individual de toda fila
+pendiente.
+
+Naive: benchmark que estima el siguiente año manteniendo el último conteo
+conocido.
+
+Delta: modelo que estima el cambio interanual y lo suma al valor rezagado.
+
+MAE / RMSE / R²: métricas de error y ajuste descritas en la sección 7.
+
+Parquet: formato columnar usado para almacenar resúmenes y paneles de forma
+compacta y adecuada para consultas analíticas.
+
+======================================================================
+FIN DEL INFORME
+======================================================================
